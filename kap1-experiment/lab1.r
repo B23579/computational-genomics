@@ -27,7 +27,8 @@ gene responsible for a specific disease. Kap1 off implies the autoimmunity."
 "1) Load data in edgeR
 In this data, rows are gene and columns are relative to samples"
 
-data<-DGEList(counts=counts[,2:7], genes = counts[,1]) # counts receive the matrix of sample
+data<-DGEList(counts=counts[,2:7], genes = counts[,1]) 
+# counts receive the matrix of sample
 
 class(data)
 
