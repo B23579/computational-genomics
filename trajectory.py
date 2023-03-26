@@ -1,8 +1,9 @@
 import random
 from itertools import combinations_with_replacement
 import numpy as np
+import json
 
-def Trajectory(nA:int,nB:int, rep:int)->list[list]: 
+def Trajectory(nA:int,nB:int, rep:int)->list[list[tuple]]: 
     """
     Generate all the evolutionary trajectories for a certain complex state  starting from wildtype 1:1.
 
@@ -83,11 +84,28 @@ def Trajectory(nA:int,nB:int, rep:int)->list[list]:
 
     return all_trajectory
 
+def TrajectKaryotype(trajectory_list:list[list])->list[list[str]]:
+    trajet=[]
+    for i in range(len(trajectory_list)):
+        temp_list=[str(sub[1])+":"+str(sub[0]) for sub in trajectory_list[i]]
+        trajet.append(temp_list)
+    return trajet
+
+def Write(trajectory:list)->None:
+    dict={}
+    for i in range(len(trajectory)):
+        dict['Id'+str(i)]=trajectory[i]
+    with open('json_trajectory2.json', 'w') as outfile:
+        outfile.write(json.dumps(dict))
+
+
 if __name__ == "__main__":
-    T=Trajectory(3,1, 2000)
+    T=Trajectory(1,4, 20)
     n= len(T)
-    print(f'The number of trajectory is : {n}')
+    Trj=TrajectKaryotype(T)
+
+    print("\n")
     for i in range(n):
-        print(T[i])
-    
+        print(Trj[i])
+    Write(Trj)
     
